@@ -9,6 +9,7 @@ module.exports = (app) => {
     app.get("/",(request, response)=>{
         response.json("running successfully");
     });
+
     app.post("/login", auth.login);
     app.post("/register",auth.register);
 
@@ -16,10 +17,11 @@ module.exports = (app) => {
         res.json({message: "Success! You can not see this without a token"});
     });
 
-    // app.post('/createFcm', fcmUser.Create);
-    // app.get('/getLoggedInUsers'/* , passport.authenticate('jwt', {session: false}) */, fcms.getLoggedInFcms);
+    app.get('/getLoggedInUsers', passport.authenticate('jwt', {session: false}), fcmUser.getLoggedInFcms);
+    
     app.put('/loggedIn', fcmUser.loggedIn);
     app.put('/loggedOut', fcmUser.loggedOut);
+    
     app.get('*', (request, response) => {
         response.status(404);
         response.end();

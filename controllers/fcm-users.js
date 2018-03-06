@@ -1,14 +1,32 @@
 let FcmUser = require("../models/fcm-user");
-/* exports.getLoggedInFcms = (request, response, next) =>{
-    Fcm.find({'fcm.status':true}, (err, fcm)=>{
-        if(err){return next(err); }
-        if(fcm){
-            response.send(fcm);
+
+exports.getLoggedInFcms = (request, response, next) =>{
+    FcmUser.find({}, (err, _fcmUser)=>{
+      if(err){return response.status(500).json(err);}
+        if(_fcmUser){
+          if (_fcmUser.length === 0) {
+            let sResponse = {
+              success: 1,
+              message: 'no loggedin user found'
+            };
+            response.status(200).send(sResponse);  
+          } else {
+            console.log(_fcmUser);
+            let sResponse = {
+              success: 1,
+              message : 'got the users'
+            };
+            response.status(200).send(_fcmUser);
+          }
         }else{
-            response.send({message:"no fcms found"})
+          let eResponse = {
+            success: 0,
+            message: 'err'
+          };
+          response.status(500).send(eResponse);
         }
     });
-}; */
+};
 
 exports.loggedIn = (request, response, next) =>{
   FcmUser.findOne({user_id: request.body.user_id}, (err, user) => {
