@@ -1,7 +1,7 @@
 const cors = require('cors'),
 auth = require('./auth'),
-fcms = require('../controllers/fcms')
-passport = require('passport');
+passport = require('passport'),
+fcmUser = require('../controllers/fcm-users');
 
 module.exports = (app) => {
     
@@ -16,10 +16,10 @@ module.exports = (app) => {
         res.json({message: "Success! You can not see this without a token"});
     });
 
-    // app.post('/createFcm', passport.authenticate('jwt', {session: false}), fcms.create);
-    app.get('/getLoggedInUsers'/* , passport.authenticate('jwt', {session: false}) */, fcms.getLoggedInFcms);
-    app.put('/loggedIn', fcms.loggedIn);
-    app.put('/loggedOut', fcms.loggedOut);
+    // app.post('/createFcm', fcmUser.Create);
+    // app.get('/getLoggedInUsers'/* , passport.authenticate('jwt', {session: false}) */, fcms.getLoggedInFcms);
+    app.put('/loggedIn', fcmUser.loggedIn);
+    app.put('/loggedOut', fcmUser.loggedOut);
     app.get('*', (request, response) => {
         response.status(404);
         response.end();
