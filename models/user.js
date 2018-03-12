@@ -10,7 +10,8 @@ let userSchema = new Schema({
     email:{type:String, required:true,unique:true},
     mobile:{type:String, required:true},
     is_active:{type: Boolean, default: true},
-    salt:{type: String}
+    salt:{type: String},
+    img_url:{type: String, default: null}
 });
 
 userSchema.methods={
