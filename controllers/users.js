@@ -63,7 +63,7 @@ exports.userDetails = (request, response) => {
 };
 
 exports.updateUser = (request, response) => {
-	updateQuery = { $set:{dob: request.body.dob, email: request.body.email, firstName: request.body.firstName, lastName:request.body.lastName, dob:request.body.dob}}
+	updateQuery = { $set:{dob: request.body.dob, email: request.body.email, firstName: request.body.firstName, lastName:request.body.lastName, mobile:request.body.mobile}}
 	user.findByIdAndUpdate(request.params._id, updateQuery, { new: true })
 	.select({ firstName: 1, lastName: 1, dob: 1, email: 1, mobile: 1, img_url: 1 })
 	.exec((err, _user) => {
